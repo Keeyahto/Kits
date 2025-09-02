@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kits"
+version = "0.1.0"
+description = "Monorepo of common RAG kits: common, llm, chunker, vector"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Kits", email = "dev@example.com" }]
+dependencies = [
+  "pydantic>=2.5",
+  "python-dotenv>=1.0",
+  "qdrant-client>=1.7",
+  "tiktoken>=0.5",
+  "pypdf>=4.0",
+  "numpy>=1.26",
+  "openai>=1.0",
+]
+
+[project.urls]
+Homepage = "https://example.com"
+
+[tool.setuptools]
+package-dir = {"" = "kits"}
+
+[tool.setuptools.packages.find]
+where = ["kits"]
+include = ["*"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-q"
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F"]
+ignore = []
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+disallow_untyped_defs = false
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+

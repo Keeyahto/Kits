@@ -1,0 +1,7 @@
+pydantic>=2.5
+python-dotenv>=1.0
+qdrant-client>=1.7
+tiktoken>=0.5
+pypdf>=4.0
+numpy>=1.26
+openai>=1.0
