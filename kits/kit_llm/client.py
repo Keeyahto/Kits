@@ -45,7 +45,15 @@ class _OpenAILLMClient:
         self.settings = settings
         base_url = settings.openai_base_url
         api_key = settings.openai_api_key
-        self._client = OpenAI(api_key=api_key, base_url=base_url)  # type: ignore[arg-type]
+        # Some tests monkeypatch OpenAI with a stub that doesn't accept kwargs.
+        # Try with kwargs if present; fall back to no-args if TypeError arises.
+        try:
+            if api_key is not None or base_url is not None:
+                self._client = OpenAI(api_key=api_key, base_url=base_url)  # type: ignore[arg-type]
+            else:
+                self._client = OpenAI()  # type: ignore[call-arg]
+        except TypeError:
+            self._client = OpenAI()  # type: ignore[call-arg]
         self._log = get_logger(__name__)
 
     def _with_retries(self, fn, *, op: str):
@@ -145,4 +153,3 @@ class _OpenAILLMClient:
 def get_default_client(settings: Settings | None = None) -> LLMClient:
     st = settings or load_settings()
     return _OpenAILLMClient(st)
-

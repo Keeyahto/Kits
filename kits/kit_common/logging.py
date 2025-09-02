@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import sys
 from datetime import datetime, timezone
 
 try:
@@ -42,7 +43,8 @@ def get_logger(name: str) -> logging.Logger:
     logger.setLevel(level)
 
     if name not in _configured_names:
-        handler = logging.StreamHandler()
+        # Write to stdout so tests capturing stdout can parse JSON
+        handler = logging.StreamHandler(stream=sys.stdout)
         handler.setFormatter(JsonLikeFormatter())
         handler.setLevel(level)
         logger.handlers.clear()
@@ -50,4 +52,3 @@ def get_logger(name: str) -> logging.Logger:
         logger.propagate = False
         _configured_names.add(name)
     return logger
-

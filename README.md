@@ -7,6 +7,8 @@ Monorepo with reusable packages for RAG pipelines:
 - kit_chunker: token-based and paragraph splitters + PDF handling
 - kit_vector: Qdrant backend abstraction
 
+Русская версия: [README.ru.md](README.ru.md)
+
 ## Installation
 
 - Python 3.11+
@@ -64,4 +66,3 @@ pytest
 ```
 
 LLM and Qdrant tests are mocked or skipped when external services are not available or not configured.
-
